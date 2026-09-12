@@ -24,9 +24,13 @@ finish-args:
   - --device=dri
   # Microphone / speakers (PipeWire Pulse compat)
   - --socket=pulseaudio
-  # Camera / media via PipeWire session (no --device=all)
+  # Camera: Flutter WebRTC / LiveKit uses V4L2 (/dev/video*).
+  # PipeWire session alone is not enough — TrackCreateException without this.
+  # Tested 2026-09-12: mic OK with pulse only; cam requires --device=all.
+  - --device=all
+  # PipeWire session (screen share / modern capture paths)
   - --filesystem=xdg-run/pipewire-0
-  # LiveKit connectivity_plus → NetworkManager (filtered system bus)
+  # LiveKit connectivity_plus → NetworkManager (filtered; no --socket=system-bus)
   - --system-talk-name=org.freedesktop.NetworkManager
   # Desktop notifications
   - --talk-name=org.freedesktop.Notifications
