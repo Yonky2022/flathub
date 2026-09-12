@@ -1,16 +1,13 @@
 # YoA Meet — Flatpak / Flathub
 #
 # App ID : com.yoameet.YoAMeet
-# Binary : yoa (Flutter Linux bundle)
+# Binary : yoa (Flutter Linux x86_64 bundle)
 #
-# Avant soumission Flathub :
-# 1. Publier le tar.gz Linux sur GitHub Releases
-# 2. Remplir url + sha256 ci-dessous (script: ./tools/flatpak/fill-release-source.sh)
-# 3. Tester localement (voir SOUMISSION-FLATHUB.md)
+# Source archive URL + sha256 below must match the public GitHub Release asset.
 
 id: com.yoameet.YoAMeet
 runtime: org.freedesktop.Platform
-runtime-version: "24.08"
+runtime-version: "26.08"
 sdk: org.freedesktop.Sdk
 command: yoa
 
@@ -52,6 +49,8 @@ modules:
 
   - name: yoameet
     buildsystem: simple
+    only-arches:
+      - x86_64
     build-commands:
       # Flutter layout: binary + lib/ + data/ side by side (RPATH $ORIGIN/lib)
       - install -d /app/yoa
